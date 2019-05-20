@@ -57,6 +57,31 @@ describe('aircall', function() {
     });
   });
 
+  // Teams
+
+  describe('Teams', function() {
+    var id;
+
+    it('should be able to get a list of teams', function(done) {
+      aircall.teams.list(function(err, res) {
+        if (err) return done(err);
+        assert(res);
+        assert(Array.isArray(res.teams));
+        id = res.teams[0].id;
+        done();
+      });
+    });
+
+    it('should be able to get a specific team', function(done) {
+      aircall.teams.get(id, function(err, res) {
+        if (err) return done(err);
+        assert(res);
+        assert.equal(res.team.id, id);
+        done();
+      });
+    });
+  });
+
   // Numbers
 
   describe('Numbers', function() {
